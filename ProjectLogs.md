@@ -1,3 +1,6 @@
+# Overview
+This document outlines the steps to gain access to Cortana Intelligence Solutions debug logging for pattern authors. 
+
 # Gain Access
 * Request access to the *caqstelemetry* security group on [idweb](https://idweb). You can do this [here](https://idweb/identitymanagement/aspx/Groups/EditGroup.aspx?id=e3486844-76aa-4ed5-98fe-d6928b39904d&_p=1).
 * Plug in the following connection information into your favorite tool that enables access to Kusto. Details on this follow in subsequent sections.
