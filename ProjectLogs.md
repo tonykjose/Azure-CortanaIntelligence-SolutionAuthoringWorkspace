@@ -114,14 +114,11 @@ This is a desktop application (much like SQL Server Management Studio) that lets
 * Once the installer is complete, run the 'Kusto Explorer' application. 
 * At the top left, click the "Connections" tab and select "Add connection" ![Add Connection Tab](/images/addconnections.png).
 
-![Connection tab](/images/3.png)
+![Connection tab](/images/connectiontab.png)
 
-* Set the connection string to the following for **Production**. 
+* Set the connection string: 
 
-![Connection String Production](/images/1.png)
-* Set the connection string to the following for **Integration**. 
-
-![Connection String Integration](/images/2.png)
+![Connection String Production](/images/connectionstringproduction.png)
 
 * Once set, you will see a connection to our Kusto database under the connections pane on the left. Select **Immlads** connection and select **IMMLADS** database. 
 * Once selected, you can now begin querying on the right-hand pane.
