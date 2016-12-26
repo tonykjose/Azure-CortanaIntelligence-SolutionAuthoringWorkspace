@@ -61,50 +61,60 @@ Field | Type | Description
 
 # Querying Project Logs
 ### Retrieve all patterns with Failures
-```
+```posh
 ProjectLogs 
-| WHERE STATUS == 'Failed' 
+| where Status == 'Failed' 
 | project PatternId
 ```
 
 ### Top Causes Of Failures 
-```
+```posh
 ProjectLogs 
-| WHERE STATUS == 'Failed' 
-| summarize Failures=dcount(ProjectId) BY PatternId, ExceptionTrace 
-| ORDER BY Failures ASC
+| where Status == 'Failed' 
+| summarize Failures = dcount(ProjectId) by PatternId, ExceptionTrace 
+| order by Failures asc
 ```
 
-### Failures Broken Down by Provisioning Step 
-```
-ProjectLogs 
-| WHERE STATUS == 'Failed' 
-| summarize Failures=dcount(ProjectId) BY PatternId, ExceptionTrace 
-| ORDER BY Failures ASC
+### Top Causes Of Failures by Pattern In a Day.
+```posh
+let patternId = 'predictivemaintenance';
+ProjectLogs
+| where Status == 'Failed' and Timestamp > ago(1d) and PatternId == patternId
+| summarize Failures = dcount(ProjectId) by PatternId, ExceptionTrace 
+| order by Failures asc
 ```
 
-### Failures by Region
+### Failures Broken Down By Provisioning Step 
+```posh
+ProjectLogs 
+| where Status == 'Failed' 
+| summarize Failures = dcount(ProjectId) by PatternId, ExceptionTrace 
+| order by Failures asc
 ```
-let pt = ProjectLogs 
-| WHERE PatternId == 'predictivemaintenance';
-pt 
-| WHERE STATUS == 'Failed' 
-| summarize FailedCount = dcount(ProjectId) BY Location
+
+### Failures By Region
+```posh
+let patternId = 'predictivemaintenance';
+ProjectLogs
+| where Status == 'Failed' 
+    and PatternId == patternId
+| summarize FailedCount = dcount(ProjectId) by Location
 ```
 
 ### Deployment Count By Region
-```
-let pt = ProjectLogs ;
-pt 
-| summarize TotalDeployments = dcount(ProjectId) BY Location
+```posh
+ProjectLogs
+| summarize TotalDeployments = dcount(ProjectId) by Location
 ```
 
 ### Average Step Times
-```
-let x = ProjectLogs 
-| summarize  StepTime = MAX(TIMESTAMP) - MIN(TIMESTAMP) BY StepName, ProjectId;
-x 
-| summarize AverageStepTime = avg(StepTime) BY StepName;
+```posh
+let patternId = 'predictivemaintenance';
+let StepTimeSummary = ProjectLogs 
+| where PatternId == patternId
+| summarize  StepTime = max(Timestamp) - min(Timestamp) by StepName, ProjectId;
+StepTimeSummary 
+| summarize AverageStepTime = avg(StepTime) by StepName;
 ```
 
 # Querying Tools
