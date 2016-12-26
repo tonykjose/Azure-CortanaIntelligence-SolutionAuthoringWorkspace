@@ -129,8 +129,21 @@ This is a desktop application (much like SQL Server Management Studio) that lets
 For further details, [refer here](https://kusto.azurewebsites.net/docs/tools/tools_kusto_explorer.html).
 
 ## Command Line
-#### Installation
-[Download the tool here.](aka.ms/kustools)
+* [Download the tool here](https://aka.ms/kustools).
+* Unzip to a folder and run the ```Kusto.Cli.exe``` executable passing in the kusto endpoint as below: 
+
+```Batchfile
+:: Production Kusto Account
+Kusto.Cli.exe https://immlads.kusto.windows.net/immlads;Fed=True
+
+:: Integration Kusto Account
+Kusto.Cli.exe https://caqsint.kusto.windows.net/caqsintdb;Fed=True
+``` 
+* You may be asked to log in to your MS account to gain access.
+* Once connected, you can begin querying the Kusto database: 
+```posh
+ProjectLogs | limit 1
+```
 
 ## Web UX
 ### Lens Explorer 
